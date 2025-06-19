@@ -1,12 +1,15 @@
-
-const Loginform = (props) => {
-    // This component renders a login form for the SecureChat application.
+const Signup = (props) => {
+    // This component renders a signup form for the SecureChat application.
     return(
         <div className="login"> 
-            <div className="container">
+            <div className="container2">
                 <h1 className="secure">SecureChat</h1>
-                <p className="welcome">Welcome back!</p>
+                <p className="welcome">Create your account</p>
                 <form action="">
+                    <div className="username">
+                        <label htmlFor="">Username</label>
+                        <input type="text" name="" id=""placeholder="Enter your Username" />
+                    </div>
                 <div className="email">
                     <label htmlFor="">Email</label><br />
                     <input type="email" name="" id=""  placeholder="Enter your email"/><br />
@@ -17,9 +20,9 @@ const Loginform = (props) => {
                     <input type="password" name="" id=""  placeholder="Enter your password"/>
                 </div>
                 <div>
-                    <button className='buttonSign'>Sign In</button>
+                    <button className='buttonSign'>Create Account</button>
                 </div>
-                <p className="account">Don't have an account? <a href="/">Sign up</a></p>
+                <p className="account">Don't have an account? <a href="/">Sign in</a></p>
                 
                 </form>
             
@@ -27,6 +30,7 @@ const Loginform = (props) => {
             </div>
         </div>
     )
+        
 }
 
-export default Loginform;
+export default Signup;
