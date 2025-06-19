@@ -3,22 +3,25 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className="home">
-        <header class="navbar">
-            <h1 class="logo">SecureChat</h1>
-            <nav class="nav-links">
-                    <Link to="/login">LOGIN</Link>
-                    <Link to="/signup">SIGN UP</Link>
-                    <Link to="/"> HOME</Link>
+        <header className="navbar">
+        <h1 className="logo">SecureChat</h1>
+            <nav className="nav-links">
+                <Link to="/">Home</Link>
+                <Link to="/features">Features</Link>
+                <Link to="/contact">Contact</Link>
+                <Link to="/login" className="logout-btn">Login </Link>
             </nav>
-        </header>
-            <h1 >Welcome to Secure Chat</h1>
-            <p>Your privacy-first messaging app. Chat securely with end-to-end <br />encryption and real-time features.</p>
-            <button className="buttonHome">
-                <Link to="/login">Login Page</Link>
-            </button>
-            <button className="buttonHome">
-                <Link to="/signup">Signup Page</Link>
-            </button>
+      </header>
+                <div className="homecenter">
+                    <h1 >Welcome to Secure Chat</h1>
+                    <p>Your privacy-first messaging app. Chat securely with end-to-end <br />encryption and real-time features.</p>
+                    {/* <button className="buttonHome">
+                        <Link to="/login">Login Page</Link>
+                    </button>
+                    <button className="buttonHome">
+                        <Link to="/signup">Signup Page</Link>
+                    </button> */}
+                </div>
      </div>
   );
 }

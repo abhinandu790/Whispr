@@ -1,6 +1,7 @@
 
 // This component renders the main page for the SecureChat application.
 const MainPage = () => {
+    
     return (
         <div className="mainpage">
             <div className="center">
