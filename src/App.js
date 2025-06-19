@@ -4,6 +4,7 @@ import Loginform from './Components/Loginform';
 import Signup from './Components/Signup';
 import Home from './Components/Home';
 import { Route,Routes } from 'react-router-dom';
+import MainPage from './Components/Mainpage';
 
 
 
@@ -15,7 +16,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Loginform />} />
         <Route path="/" element={<Home/>} />
-        <Route path="/signup" element={<Signup />} />        
+        <Route path="/signup" element={<Signup />} /> 
+        <Route path='/main' element={<MainPage/>}/>       
       </Routes>
 
    
