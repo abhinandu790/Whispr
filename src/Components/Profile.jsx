@@ -1,2 +1,8 @@
 
-const Profile
+const Profile = (props) => {
+ return(
+    
+ )
+}
+
+export default Profile
