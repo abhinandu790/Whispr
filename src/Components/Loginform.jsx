@@ -1,17 +1,39 @@
+import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Loginform = (props) => {
-    // This component renders a login form for the SecureChat application.
+    
 
+    // This component renders a login form for the SecureChat application.
+    const navigate = useNavigate(); 
     const [loginData, setLoginData] = useState({
         email: '',
-        passsword: ''
+        password: ''
     });
 
-    const handleSubmit = ()=> {
+    // const loginFunc = async()
+
+    const handleSubmit = async (e)=> {
+
+        e.preventDefault()
         console.log(loginData);
+
+       await axios.post('http://localhost:5000/api/v1/login', {...loginData}).then((res)=> {
+        console.log(res.data, 'response')
+        navigate('/main')
+
+        // if (res.data.status) {
+        //     alert('this is auth user')
+        // } else {
+        //     alert('this is not auth user')
+        // }
+       }).catch((err)=> {
+            console.log(err)
+           
+       })
     }
+ 
 
     
     return (
@@ -19,7 +41,7 @@ const Loginform = (props) => {
             <div className="container">
                 <h1 className="secure">SecureChat</h1>
                 <p className="welcome">Welcome back!</p>
-                <form action="">
+                <form action="" onSubmit={handleSubmit}>
                 <div className="email">
                     <label htmlFor="">Email</label><br />
                     <input type="email" name="" id=""   placeholder="Enter your email" onChange={(e)=> {
@@ -29,11 +51,11 @@ const Loginform = (props) => {
                 </div>
                 <div className="password">
                     <label htmlFor="">Password</label><br />
-                       <input type="password" name="" id="" onChange={(e)=> setLoginData({...loginData, passsword: e.target.value})} placeholder="Enter your password"/>
+                       <input type="password" name="" id="" onChange={(e)=> setLoginData({...loginData, password: e.target.value})} placeholder="Enter your password"/>
                         
                 </div>
                 <div>
-                    <button className='buttonSign' onClick={handleSubmit} >Sign In</button>
+                    <button className='buttonSign' type="submit" >Sign In</button>
                 </div>
                 <p className="account">Don't have an account? <Link  to="/signup">Signup </Link> </p>
                 
@@ -45,4 +67,20 @@ const Loginform = (props) => {
     )
 }
 
+
 export default Loginform;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
