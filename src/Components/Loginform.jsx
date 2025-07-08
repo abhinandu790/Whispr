@@ -21,17 +21,22 @@ const Loginform = (props) => {
 
        await axios.post('http://localhost:5000/api/v1/login', {...loginData}).then((res)=> {
         console.log(res.data, 'response')
-        navigate('/main')
+        const {token, refresh} = res.data
+         if (!token) {
+        alert(res.data.message || "Login failed: Token not received.");
+        return;
+       }
+        localStorage.setItem("accessToken", token);
+        localStorage.setItem("refreshToken", refresh);
 
-        // if (res.data.status) {
-        //     alert('this is auth user')
-        // } else {
-        //     alert('this is not auth user')
-        // }
+        navigate('/main')
+        
        }).catch((err)=> {
             console.log(err)
            
        })
+
+       
     }
  
 
