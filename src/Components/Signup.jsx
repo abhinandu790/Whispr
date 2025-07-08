@@ -2,62 +2,92 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Signup = (props) => {
+const Signup = () => {
+  const navigate = useNavigate();
 
-    // This component renders a signup form for the SecureChat application.
-    const navigate = useNavigate();
-    const [signupData, setSignupData] = useState({
-        username: '',
-        email: '',
-        password: ''
-    });
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(signupData);
+  const [signupData, setSignupData] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
 
-           await axios.post('http://localhost:5000/api/v1/register', {...signupData}).then((res)=> {
-            console.log(res.data, "response")
-            const {token, refresh} = res.data
-            console.log(res.data)
-            localStorage.setItem("accessToken", token);
-            localStorage.setItem("refreshToken", refresh);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-            navigate("/main")
-        }).catch((err)=> {
-            console.log(err)
-        })
+    const payload = {
+      userName: signupData.username,
+      userEmail: signupData.email.toLowerCase(),
+      userPassword: signupData.password
+    };
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/v1/register", payload);
+      console.log("✅ Registration successful:", res.data);
+
+      const { token, refresh } = res.data;
+      localStorage.setItem("accessToken", token);
+      localStorage.setItem("refreshToken", refresh);
+
+      navigate("/main");
+    } catch (err) {
+      console.error("❌ Registration failed:", err.response?.data?.message || err.message);
+      alert(err.response?.data?.message || "Registration failed");
     }
-    return (
-        <div className="login"> 
-            <div className="container2">
-                <h1 className="secure">SecureChat</h1>
-                <p className="welcome">Create your account</p>
-                <form action="">
-                    <div className="username">
-                        <label htmlFor="">Username</label>
-                        <input type="text" name="" id=""placeholder="Enter your Username" onChange={(e)=> setSignupData({...signupData,username: e.target.value})} />
-                    </div>
-                <div className="email">
-                    <label htmlFor="">Email</label><br />
-                    <input type="email" name="" id=""  placeholder="Enter your email" onChange={(e)=> setSignupData({...signupData, email: e.target.value})}/><br />
+  };
 
-                </div>
-                <div className="password">
-                    <label htmlFor="">Password</label><br />
-                    <input type="password" name="" id=""  placeholder="Enter your password" onChange={(e)=> setSignupData({...signupData, password: e.target.value})}/>
-                </div>
-                <div>
-                    <button className='buttonSign' onClick={handleSubmit}>Create Account</button>
-                </div>
-                <p className="account">Already have an account? <Link  to="/login">Login</Link> </p>
-                
-                </form>
-            
-            
-            </div>
-        </div>
-    )
-        
-}
+  return (
+    <div className="login">
+      <div className="container2">
+        <h1 className="secure">SecureChat</h1>
+        <p className="welcome">Create your account</p>
+
+        <form onSubmit={handleSubmit}>
+          <div className="username">
+            <label>Username</label>
+            <input
+              type="text"
+              placeholder="Enter your Username"
+              value={signupData.username}
+              onChange={(e) => setSignupData({ ...signupData, username: e.target.value })}
+              required
+            />
+          </div>
+
+          <div className="email">
+            <label>Email</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={signupData.email}
+              onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
+              required
+            />
+          </div>
+
+          <div className="password">
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={signupData.password}
+              onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
+              required
+            />
+          </div>
+
+          <div>
+            <button className="buttonSign" type="submit">
+              Create Account
+            </button>
+          </div>
+
+          <p className="account">
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default Signup;
